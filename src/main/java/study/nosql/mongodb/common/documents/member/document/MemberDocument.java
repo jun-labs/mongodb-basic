@@ -1,5 +1,6 @@
 package study.nosql.mongodb.common.documents.member.document;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import study.nosql.mongodb.business.domain.member.entity.Member;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 public class MemberDocument {
 
     @Id
-    private Long _id;
+    private String _id;
 
     @Column
     private Long memberId;
@@ -26,11 +27,12 @@ public class MemberDocument {
     }
 
     public MemberDocument(Member member) {
+        this._id = new ObjectId().toHexString();
         this.memberId = member.getMemberId();
         this.name = member.getName();
     }
 
-    public Long get_id() {
+    public String get_id() {
         return _id;
     }
 

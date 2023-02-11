@@ -1,5 +1,6 @@
 package study.nosql.mongodb.common.documents.review.document;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import study.nosql.mongodb.business.domain.review.entity.Review;
 import study.nosql.mongodb.common.documents.image.document.ReviewImageDocument;
@@ -37,6 +38,7 @@ public class ReviewDocument {
             Review review,
             List<ReviewImageDocument> reviewImageDocument
     ) {
+        this._id = new ObjectId().toHexString();
         this.reviewId = review.getReviewId();
         this.postId = review.getPostId();
         this.content = review.getContent();

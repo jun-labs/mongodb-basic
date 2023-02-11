@@ -1,5 +1,6 @@
 package study.nosql.mongodb.common.documents.image.document;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import study.nosql.mongodb.business.domain.image.entity.PostImage;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 public class PostImageDocument {
 
     @Id
-    private Long _id;
+    private String _id;
 
     @Column
     private Long postImageId;
@@ -29,12 +30,13 @@ public class PostImageDocument {
     }
 
     public PostImageDocument(PostImage postImage) {
+        this._id = new ObjectId().toHexString();
         this.postImageId = postImage.getPostImageId();
         this.postId = postImage.getPostId();
         this.imageUrl = postImage.getImageUrl();
     }
 
-    public Long get_id() {
+    public String get_id() {
         return _id;
     }
 

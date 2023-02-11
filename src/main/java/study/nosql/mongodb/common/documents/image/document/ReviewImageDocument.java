@@ -1,5 +1,6 @@
 package study.nosql.mongodb.common.documents.image.document;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import study.nosql.mongodb.business.domain.image.entity.ReviewImage;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 public class ReviewImageDocument {
 
     @Id
-    private Long _id;
+    private String _id;
 
     @Column
     private Long reviewImageId;
@@ -32,13 +33,14 @@ public class ReviewImageDocument {
     }
 
     public ReviewImageDocument(ReviewImage reviewImage) {
+        this._id = new ObjectId().toHexString();
         this.reviewImageId = reviewImage.getReviewImageId();
         this.postId = reviewImage.getPostId();
         this.reviewId = reviewImage.getReviewId();
         this.imageUrl = reviewImage.getImageUrl();
     }
 
-    public Long get_id() {
+    public String get_id() {
         return _id;
     }
 

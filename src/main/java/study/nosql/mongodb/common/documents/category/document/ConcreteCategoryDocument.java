@@ -1,5 +1,6 @@
 package study.nosql.mongodb.common.documents.category.document;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import study.nosql.mongodb.business.domain.category.entity.ConcreteCategory;
 
@@ -26,6 +27,7 @@ public class ConcreteCategoryDocument {
     }
 
     public ConcreteCategoryDocument(ConcreteCategory concreteCategory) {
+        this._id = new ObjectId().toHexString();
         this.concreteCategoryId = concreteCategory.getConcreteCategoryId();
         this.name = concreteCategory.getName();
     }

@@ -1,5 +1,6 @@
 package study.nosql.mongodb.common.documents.category.document;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import study.nosql.mongodb.business.domain.category.entity.CategoryGroup;
 import study.nosql.mongodb.business.domain.category.entity.ConcreteCategory;
@@ -13,7 +14,7 @@ import java.util.Objects;
 public class CategoryDocument {
 
     @Id
-    private Long _id;
+    private String _id;
 
     @Column
     private Long categoryGroupId;
@@ -34,12 +35,13 @@ public class CategoryDocument {
         SubCategory subCategory = concreteCategory.getSubCategory();
         CategoryGroup categoryGroup = subCategory.getCategoryGroup();
 
+        this._id = new ObjectId().toHexString();
         this.categoryGroupId = categoryGroup.getCategoryGroupId();
         this.name = categoryGroup.getName();
         this.subCategory = new SubCategoryDocument(subCategory, concreteCategory);
     }
 
-    public Long get_id() {
+    public String get_id() {
         return _id;
     }
 

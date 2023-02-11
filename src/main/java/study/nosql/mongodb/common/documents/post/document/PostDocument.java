@@ -2,6 +2,7 @@ package study.nosql.mongodb.common.documents.post.document;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.data.mongodb.core.mapping.Document;
 import study.nosql.mongodb.business.domain.post.entity.Post;
@@ -10,7 +11,7 @@ import study.nosql.mongodb.common.documents.category.document.CategoryDocument;
 import study.nosql.mongodb.common.documents.image.document.PostImageDocument;
 import study.nosql.mongodb.common.documents.member.document.MemberDocument;
 import study.nosql.mongodb.common.documents.review.document.ReviewDocument;
-import study.nosql.mongodb.common.mapping.Deleted;
+import study.nosql.mongodb.business.domain.common.Deleted;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -65,6 +66,7 @@ public class PostDocument {
             List<ReviewDocument> reviewsDocument,
             List<PostImageDocument> postImagesDocument
     ) {
+        this._id = new ObjectId().toHexString();
         this.postId = post.getPostId();
         this.content = post.getContent();
         this.comentCount = post.getComentCount();
