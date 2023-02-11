@@ -1,0 +1,93 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
+plugins {
+    id 'org.springframework.boot' version '2.7.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
+    id 'java'
+}
+
+group = 'project.study'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring-Boot
+    implementation('org.springframework.boot:spring-boot-starter')
+    implementation('org.springframework.boot:spring-boot-starter-web:2.7.7')
+
+    // Jpa, QueryDSL
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation("com.querydsl:querydsl-jpa:${queryDslVersion}")
+    implementation("com.querydsl:querydsl-apt:${queryDslVersion}")
+    implementation("com.querydsl:querydsl-core:${queryDslVersion}")
+
+    // Flyway
+    implementation(group: 'org.flywaydb', name: 'flyway-core', version: '7.5.1')
+
+    // MySQL
+    implementation(group: 'mysql', name: 'mysql-connector-java', version: '8.0.28')
+
+    // MongoDB
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+
+    // GSon
+    implementation('com.google.code.gson:gson:2.10.1')
+
+    // Test
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    implementation('junit:junit:4.13.2')
+
+    // Lombok
+    compileOnly('org.projectlombok:lombok:1.18.24')
+    testCompileOnly('org.projectlombok:lombok:1.18.24')
+    testAnnotationProcessor('org.projectlombok:lombok:1.18.24')
+    annotationProcessor('org.projectlombok:lombok')
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+jar {
+    enabled = false
+}
+
+// QueryDSL
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+    asciidoctorExtensions
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
