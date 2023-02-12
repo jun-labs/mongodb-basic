@@ -4,11 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ActiveProfiles;
-import study.nosql.mongodb.configuration.database.DatabaseInitialization;
-
-import java.util.Set;
+import study.nosql.mongodb.configuration.database.MongoDBInitializationConfiguration;
+import study.nosql.mongodb.configuration.database.RDBInitializationConfiguration;
 
 @Slf4j
 @SpringBootTest
@@ -16,18 +14,14 @@ import java.util.Set;
 public abstract class IntegrationTestBase {
 
     @Autowired
-    private DatabaseInitialization databaseInitialization;
+    private RDBInitializationConfiguration RDBInitializationConfiguration;
 
     @Autowired
-    private MongoTemplate mongoTemplate;
+    private MongoDBInitializationConfiguration mongoDBInitializationConfiguration;
 
     @AfterEach
     void afterEach() {
-        databaseInitialization.truncateAllEntity();
-        Set<String> collections = mongoTemplate.getCollectionNames();
-        for (String collection : collections) {
-            log.debug("Remove all documents from [{}] collection.", collection);
-            mongoTemplate.dropCollection(collection);
-        }
+        RDBInitializationConfiguration.truncateAllEntity();
+        mongoDBInitializationConfiguration.clearCollections();
     }
 }
