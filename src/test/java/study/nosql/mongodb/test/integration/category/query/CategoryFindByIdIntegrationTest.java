@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import study.nosql.mongodb.business.domain.category.entity.CategoryGroup;
 import study.nosql.mongodb.business.domain.category.entity.ConcreteCategory;
 import study.nosql.mongodb.business.domain.category.entity.SubCategory;
+import study.nosql.mongodb.business.domain.common.exception.BusinessException;
 import study.nosql.mongodb.business.web.category.application.CategoryQueryService;
 import study.nosql.mongodb.configuration.annotation.InsertData;
 import study.nosql.mongodb.configuration.test.IntegrationTestBase;
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @InsertData
 @DisplayName("카테고리 조회 테스트")
@@ -34,5 +37,17 @@ class CategoryFindByIdIntegrationTest extends IntegrationTestBase {
                 () -> Assertions.assertEquals(expectedSubCategory, subCategory.getName()),
                 () -> Assertions.assertEquals(expectedConcreteCategory, concreteCategory.getName())
         );
+    }
+
+    @Test
+    @DisplayName("존재하지 않는 카테고리를 조회하면 BusinessException이 발생한다.")
+    void 게시글_카테고리_조회_실패_통합_테스트() {
+        Long invalidCategoryId = Long.MAX_VALUE;
+        Class<?> expectedClazz = BusinessException.class;
+        String expectedMessage = "카테고리를 찾을 수 없습니다.";
+
+        assertThatThrownBy(() -> categoryQueryService.findConcreteCategoryByPostId(invalidCategoryId))
+                .isInstanceOf(expectedClazz)
+                .hasMessage(expectedMessage);
     }
 }
