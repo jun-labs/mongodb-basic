@@ -31,7 +31,7 @@ public class SubCategory {
     private LocalDateTime lastModifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_group_id")
     private CategoryGroup categoryGroup;
 
     /**
