@@ -22,16 +22,16 @@ public enum ReviewExceptionType implements BaseExceptionType {
 
     @Override
     public int getErrorCode() {
-        return 0;
+        return code;
     }
 
     @Override
     public String getMessage() {
-        return null;
+        return message;
     }
 
     @Override
     public HttpStatus getHttpStatus() {
-        return null;
+        return httpStatus;
     }
 }
