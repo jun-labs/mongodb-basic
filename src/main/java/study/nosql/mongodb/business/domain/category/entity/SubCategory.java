@@ -1,5 +1,6 @@
 package study.nosql.mongodb.business.domain.category.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class SubCategory {
     @Column
     private LocalDateTime lastModifiedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "category_id")
     private CategoryGroup categoryGroup;
 
