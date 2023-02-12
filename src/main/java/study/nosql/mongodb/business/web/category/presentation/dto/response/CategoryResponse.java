@@ -25,4 +25,13 @@ public class CategoryResponse {
     public SubCategoryResponse getSubCategoryResponse() {
         return subCategoryResponse;
     }
+
+    @Override
+    public String toString() {
+        return """
+                "categoryGroupId": %s,
+                "name": %s,
+                "subCategories": %s
+                """.formatted(categoryGroupId, name, subCategoryResponse);
+    }
 }

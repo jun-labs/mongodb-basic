@@ -19,4 +19,12 @@ public class ConcreteCategoryResponse {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return """
+                "concreteCategoryId": "%s",
+                "name": %s
+                """.formatted(concreteCategoryId, name);
+    }
 }
