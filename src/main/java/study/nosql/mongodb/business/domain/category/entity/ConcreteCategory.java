@@ -3,7 +3,10 @@ package study.nosql.mongodb.business.domain.category.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -14,6 +17,7 @@ import java.util.Objects;
 public class ConcreteCategory {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long concreteCategoryId;
 
     @Column
@@ -26,6 +30,7 @@ public class ConcreteCategory {
     private LocalDateTime lastModifiedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_category_id")
     private SubCategory subCategory;
 
     /**
