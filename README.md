@@ -8,7 +8,6 @@ MongoDB 학습 저장소. 간단한 게시판을 만들면서 MongoDB의 기능�
 
 <div align="center">
 
-[![Release](https://img.shields.io/badge/-📝%20wiki%20-blue)]()
 [![Release](https://img.shields.io/badge/-%F0%9F%93%9A%20mongodb-green)](https://www.mongodb.com/docs/)
 [![Release](https://img.shields.io/badge/-%F0%9F%93%9A%20spring%20docs-brightgreen)](https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/)
 </div>
